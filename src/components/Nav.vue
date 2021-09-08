@@ -1,5 +1,5 @@
 <template>
-<div>
+<div class="nav">
       <!--在vue提供的router-link中就能够实现类似于a标签的功能，点哪去哪-->
       <router-link to="/money">记账</router-link>
       |
@@ -17,5 +17,7 @@ name: "Nav"
 </script>
 
 <style lang="scss" scoped>
-
+  .nav{
+    border: 1px solid red;
+  }
 </style>
