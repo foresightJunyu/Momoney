@@ -3,6 +3,9 @@ module.exports = {
   env: {
     node: true
   },
+  "globals":{
+    "__WebpackModuleApi": "writable"
+  },
   'extends': [
     'plugin:vue/essential',
     'eslint:recommended',

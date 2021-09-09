@@ -5,6 +5,7 @@ import router from './router'
 import store from './store'
 import Nav from "@/components/Nav.vue";
 import Layout from "@/components/Layout.vue";
+import Icon from "@/components/Icon.vue";
 
 Vue.config.productionTip = false
 
@@ -15,6 +16,8 @@ Vue.component('Nav',Nav)
 * 面试的时候可以吹，在项目中遇到了这这问题，然后怎么一步步解决的，发现还是全局引入最方便*/
 
 Vue.component('Layout',Layout)
+Vue.component('Icon', Icon)
+
 new Vue({
   router,
   store,
