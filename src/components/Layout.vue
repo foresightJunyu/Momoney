@@ -9,19 +9,18 @@
 
 <script lang="ts">
 export default {
-name: "Layout"
+  name: "Layout"
 }
 </script>
 
 <style lang="scss" scoped>
-.nav-wrapper{
-  border: 1px solid green;
+.nav-wrapper {
   display: flex;
   flex-direction: column;
   height: 100vh;
 }
-.content{
-  border: 1px solid blue;
+
+.content {
   overflow: auto;
   flex-grow: 1;
 }

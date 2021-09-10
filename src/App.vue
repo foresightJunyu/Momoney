@@ -9,9 +9,7 @@
 
   <div>
     <!--相当于容器container，让component能定位到这里来显示-->
-    <router-view>
-
-    </router-view>
+    <router-view />
     </div>
 </template>
 
@@ -21,6 +19,14 @@
   padding: 0;
   box-sizing: border-box;
 }
+body{
+  line-height: 1.5;
+}
+a{
+  text-decoration: none;
+  color: inherit;
+}
+// 这个a{}可以把下划线去掉
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

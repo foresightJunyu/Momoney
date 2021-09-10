@@ -1,6 +1,6 @@
 <template>
   <svg class="icon">
-    <use v-bind:xlink:href="'#' + name"/>
+    <use v-bind:xlink:href="'#'+name"/>
   </svg>
 </template>
 
@@ -44,14 +44,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .icon{
-    width: 1em;
-    height: 1em;
-    // 正好就把 em 的单位用好了，不需要关注 icon 多大，放在字旁边和字差不多大就行了
-    vertical-align: -0.15em;
-    fill: currentColor;
-    overflow: hidden;
-  }
+.icon {
+  width: 1em;
+  height: 1em;
+  // 正好就把 em 的单位用好了，不需要关注 icon 多大，放在字旁边和字差不多大就行了
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
+}
 </style>
 // 执行git commit报错
 // 'lint-staged' 不是内部或外部命令，也不是可运行的程序或批处理文件。
