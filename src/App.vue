@@ -8,7 +8,8 @@
 <!--  </div>-->
 
   <div>
-    <router-view> //相当于容器container，让component能定位到这里来显示
+    <!--相当于容器container，让component能定位到这里来显示-->
+    <router-view>
 
     </router-view>
     </div>
