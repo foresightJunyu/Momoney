@@ -8,3 +8,12 @@ a{
   color: inherit;
 }
 // 这个a{}可以把下划线去掉
+ul, ol {
+  list-style: none;
+}
+button, input{
+  font: inherit;
+}
+:focus{
+  outline: none;
+}
