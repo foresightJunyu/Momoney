@@ -17,9 +17,16 @@ import Types from "@/components/Money/Types.vue";
 import Tags from "@/components/Money/Tags.vue";
 import Notes from "@/components/Money/Notes.vue";
 import {Component, Watch} from 'vue-property-decorator';
+import model from "@/model";
 
+// // eslint-disable-next-line @typescript-eslint/no-var-requires
+// const {model} = require('@/model.js');
+// const recordList: Record[] = model.fetch();
+
+const recordList = model.fetch();
+
+// 数据库版本
 const version = window.localStorage.getItem('version') || '0';
-const recordList: Record[] = JSON.parse(window.localStorage.getItem('recordList') || '[]');
 if (version === '0.0.1') {
   // 数据库升级，也叫数据迁移
   recordList.forEach(record => {
@@ -30,13 +37,6 @@ if (version === '0.0.1') {
 }
 window.localStorage.setItem('version', '0.0.2');
 
-type Record = {
-  tags: string[]
-  notes: string
-  type: string
-  amount: number // 数据类型 object | string
-  createAt?: Date // 类 / 构造函数（这是比类型更小的一个分类）
-}
 
 @Component({
   components: {Tags, Notes, Types, NumberPad},
@@ -44,8 +44,8 @@ type Record = {
 
 export default class Money extends Vue {
   tags = ['衣', '食', '住', '行'];
-  recordList: Record[] = recordList;
-  record: Record = {
+  recordList: RecordItem[] = recordList;
+  record: RecordItem = {
     tags: [], notes: '', type: '-', amount: 0
   };
 
@@ -62,7 +62,7 @@ export default class Money extends Vue {
   }
 
   saveRecord() {
-    const deepClone: Record = JSON.parse(JSON.stringify(this.record));
+    const deepClone: RecordItem = model.clone(this.record);
     deepClone.createAt = new Date();
     this.recordList.push(deepClone);
     // 上面这出了一个bug，这样写 this.recordList.push(this.record);
@@ -71,8 +71,7 @@ export default class Money extends Vue {
 
   @Watch('recordList')
   onRecordListChange() {
-    window.localStorage.setItem('recordList', JSON.stringify(this.recordList));
-
+    model.save(this.recordList);
   }
 }
 </script>
