@@ -5,7 +5,7 @@
       <Types :value.sync="record.type"/>
       <Notes @update:value="onUpdateNotes"/>
       <Tags :data-source.sync="tags" @update:value="onUpdateTags"/>
-      {{ record }}
+      {{ recordList }}
     </Layout>
   </div>
 </template>
@@ -18,11 +18,24 @@ import Tags from "@/components/Money/Tags.vue";
 import Notes from "@/components/Money/Notes.vue";
 import {Component, Watch} from 'vue-property-decorator';
 
+const version = window.localStorage.getItem('version') || '0';
+const recordList: Record[] = JSON.parse(window.localStorage.getItem('recordList') || '[]');
+if (version === '0.0.1') {
+  // 数据库升级，也叫数据迁移
+  recordList.forEach(record => {
+    record.createAt = new Date(2021, 1, 1);
+  });
+  // 保存数据
+  window.localStorage.setItem('recordList', JSON.stringify(recordList));
+}
+window.localStorage.setItem('version', '0.0.2');
+
 type Record = {
   tags: string[]
   notes: string
   type: string
-  amount: number
+  amount: number // 数据类型 object | string
+  createAt?: Date // 类 / 构造函数（这是比类型更小的一个分类）
 }
 
 @Component({
@@ -31,7 +44,7 @@ type Record = {
 
 export default class Money extends Vue {
   tags = ['衣', '食', '住', '行'];
-  recordList: Record[] = [];
+  recordList: Record[] = recordList;
   record: Record = {
     tags: [], notes: '', type: '-', amount: 0
   };
@@ -49,11 +62,11 @@ export default class Money extends Vue {
   }
 
   saveRecord() {
-    const deepClone = JSON.parse(JSON.stringify(this.record))
+    const deepClone: Record = JSON.parse(JSON.stringify(this.record));
+    deepClone.createAt = new Date();
     this.recordList.push(deepClone);
     // 上面这出了一个bug，这样写 this.recordList.push(this.record);
     // this.record 只是一个引用，而没有复制出一个新的，所以提交多少次都是一样的数据在localstorage里面
-    console.log(deepClone)
   }
 
   @Watch('recordList')
