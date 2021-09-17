@@ -1,5 +1,5 @@
 const localStorageKeyName = 'recordList';
-const model = {
+const recordListModel = {
 
     clone(data: RecordItem[] | RecordItem) {
         return JSON.parse(JSON.stringify(data));
@@ -12,6 +12,6 @@ const model = {
     }
 };
 
-export default model;
+export default recordListModel;
 /* 用默认导出，在 Money.vue 里就使用 const model = require('@/model.js').model 导入*/
 // 因为直接 import 是不能在 .js 到 .ts 的
