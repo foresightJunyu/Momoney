@@ -19,13 +19,16 @@
 <script lang="ts">
 import Vue from 'vue';
 import {Component, Prop} from "vue-property-decorator";
+import tagListModel from "@/models/tagListModel";
+
+tagListModel.fetch();
 
 @Component
 export default class Tags extends Vue {
   @Prop() readonly dataSource: string[] | undefined;
   selectedTags: string[] = [];
 
-  toggle(tag: string){
+  toggle(tag: string) {
     const index = this.selectedTags.indexOf(tag);
     if (index >= 0) {
       this.selectedTags.splice(index, 1);
@@ -35,18 +38,32 @@ export default class Tags extends Vue {
     this.$emit('update:value', this.selectedTags);
   }
 
+  // create() {
+  //   const name = window.prompt('请输入新标签名');
+  //   if (name === '') {
+  //     window.alert('标签名不能为空');
+  //   } else {
+  //     // if (this.dataSource) {
+  //     //   this.dataSource.push(name!); // 不能直接去改外部数据！！！
+  //     // }
+  //     if (this.dataSource) {
+  //       this.$emit('update:dataSource', [...this.dataSource, name]);
+  //     }
+  //     // 如果触发了这个事件，那就把这个更新的赋值给之前的dataSource，在Money.vue里加入了.sync语法糖才可以触发
+  //   }
+  // }
   create() {
-    const name = window.prompt('请输入新标签名');
-    if (name === '') {
-      window.alert('标签名不能为空');
-    } else {
-      // if (this.dataSource) {
-      //   this.dataSource.push(name!); // 不能直接去改外部数据！！！
-      // }
-      if (this.dataSource) {
-        this.$emit('update:dataSource', [...this.dataSource, name]);
+    const name = window.prompt('请输入标签名');
+    if (name) {
+      const message = tagListModel.create(name);
+      if (message === 'duplicated') {
+        window.alert('重复标签名');
+      } else if (message === 'success') {
+        window.alert('添加成功');
       }
-      // 如果触发了这个事件，那就把这个更新的赋值给之前的dataSource，在Money.vue里加入了.sync语法糖才可以触发
+    }
+    if (this.dataSource) {
+      this.$emit('update:dataSource', [...this.dataSource, name]);
     }
   }
 }
