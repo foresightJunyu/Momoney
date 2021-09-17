@@ -25,6 +25,7 @@ import model from "@/model";
 
 const recordList = model.fetch();
 
+
 // 数据库版本
 const version = window.localStorage.getItem('version') || '0';
 if (version === '0.0.1') {
