@@ -78,11 +78,12 @@ export default class Labels extends Vue {
     }
   }
 
-  //.createTag-wrapper {
-  //  // 按钮是内联元素，所以它的要加在它的父节点上，在外面的 div
-  //  text-align: center;
-  //  padding: 20px;
-  //  margin-top: 44-16px;
+  .createTag-wrapper {
+    // 按钮是内联元素，所以它的要加在它的父节点上，在外面的 div
+    text-align: center;
+    padding: 20px;
+    margin-top: 44-16px;
+  }
 
   //.createTag {
   //  background: #767676;
