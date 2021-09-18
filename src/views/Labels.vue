@@ -1,22 +1,22 @@
 <template>
 
-    <Layout>
-      <div>
+  <Layout>
+    <div>
       <div class="label">
         <div class="tags">
           <router-link class="item" v-for="tag in tags" :key="tag.id"
-          :to="`/labels/edit/${tag.id}`">
+                       :to="`/labels/edit/${tag.id}`">
             <span>{{ tag.name }}</span>
             <Icon name="right"/>
           </router-link>
 
         </div>
         <div class="createTag-wrapper">
-          <button class="createTag" @click="createTag">新建标签</button>
+          <Button class="createTag" @click="createTag">新建标签</Button>
         </div>
       </div>
-      </div>
-    </Layout>
+    </div>
+  </Layout>
 
 
 </template>
@@ -25,14 +25,16 @@
 import Vue from 'vue';
 import {Component} from "vue-property-decorator";
 import tagListModel from "@/models/tagListModel";
+import Button from "@/components/Button.vue";
 
 tagListModel.fetch();
-
-@Component
+@Component({
+  components: {Button}
+})
 export default class Labels extends Vue {
   tags = tagListModel.data;
 
-  createTag() :void{
+  createTag(): void {
     const name = window.prompt('请输入标签名');
     if (name) {
       const message = tagListModel.create(name);
@@ -76,21 +78,27 @@ export default class Labels extends Vue {
     }
   }
 
-  .createTag-wrapper {
-    // 按钮是内联元素，所以它的要加在它的父节点上，在外面的 div
-    text-align: center;
-    padding: 20px;
-    margin-top: 44-16px;
+  //.createTag-wrapper {
+  //  // 按钮是内联元素，所以它的要加在它的父节点上，在外面的 div
+  //  text-align: center;
+  //  padding: 20px;
+  //  margin-top: 44-16px;
 
-    .createTag {
-      background: #767676;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      height: 40px;
-      padding: 0 16px;
-    }
-  }
+  //.createTag {
+  //  background: #767676;
+  //  color: white;
+  //  border: none;
+  //  border-radius: 4px;
+  //  height: 40px;
+  //  padding: 0 16px;
+  //  &-wrapper {
+  //    text-align: center;
+  //    padding: 20px;
+  //    margin-top: 44-16px;
+  //  }
+  //}
 }
+
+
 
 </style>
