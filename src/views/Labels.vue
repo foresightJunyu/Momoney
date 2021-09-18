@@ -1,20 +1,23 @@
 <template>
-  <div>
+
     <Layout>
+      <div>
       <div class="label">
-        <ul class="tags">
-          <li v-for="tag in tags" :key="tag.id">
+        <div class="tags">
+          <router-link class="item" v-for="tag in tags" :key="tag.id"
+          :to="`/labels/edit/${tag.id}`">
             <span>{{ tag.name }}</span>
             <Icon name="right"/>
-          </li>
+          </router-link>
 
-        </ul>
+        </div>
         <div class="createTag-wrapper">
           <button class="createTag" @click="createTag">新建标签</button>
         </div>
       </div>
+      </div>
     </Layout>
-  </div>
+
 
 </template>
 
@@ -29,7 +32,7 @@ tagListModel.fetch();
 export default class Labels extends Vue {
   tags = tagListModel.data;
 
-  createTag() {
+  createTag() :void{
     const name = window.prompt('请输入标签名');
     if (name) {
       const message = tagListModel.create(name);
@@ -52,7 +55,7 @@ export default class Labels extends Vue {
     background: white;
     padding-left: 16px;
 
-    > li {
+    .item {
       min-height: 44px;
       display: flex;
       align-items: center;
