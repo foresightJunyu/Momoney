@@ -22,7 +22,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   color: #333;
   line-height: 1.5;
-  font-family: $font-kai;
+  font-family: $font-hei;
   font-size: 16px;
   background: #f5f5f5;
 }
