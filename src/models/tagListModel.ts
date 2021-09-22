@@ -1,3 +1,5 @@
+import createId from "@/lib/createId.ts";
+
 const localStorageKeyName = 'tagList';
 type Tag = {
     id: string
@@ -42,7 +44,8 @@ const tagListModel: TagListModel = {
         if (names.indexOf(name) >= 0) {
             return 'duplicated';
         }
-        this.data.push({id: name, name: name});
+        const id = createId().toString();
+        this.data.push({id: id, name: name});
         this.save();
         return 'success';
     },
