@@ -4,10 +4,10 @@
       <NumberPad @update:value="onUpdateAmount" @submit="saveRecord"/>
       <Types :value.sync="record.type"/>
       <div class="notes">
-      <FormItem
-          field-name="备注"
-          placeholder="请输入备注"
-          @update:value="onUpdateNotes"/>
+        <FormItem
+            field-name="备注"
+            placeholder="请输入备注"
+            @update:value="onUpdateNotes"/>
       </div>
       <Tags :data-source.sync="tags"
             @update:value="onUpdateTags"/>
@@ -70,16 +70,12 @@ export default class Money extends Vue {
   }
 
   saveRecord() {
-    const deepClone: RecordItem = recordListModel.clone(this.record);
-    deepClone.createAt = new Date();
-    this.recordList.push(deepClone);
-    // 上面这出了一个bug，这样写 this.recordList.push(this.record);
-    // this.record 只是一个引用，而没有复制出一个新的，所以提交多少次都是一样的数据在localstorage里面
+    return recordListModel.create(this.record);
   }
 
   @Watch('recordList')
   onRecordListChange() {
-    recordListModel.save(this.recordList);
+    recordListModel.save();
   }
 }
 </script>
@@ -88,7 +84,7 @@ export default class Money extends Vue {
   display: flex;
   flex-direction: column-reverse;
 }
-.notes{
+.notes {
   padding: 12px 0;
 }
 </style>

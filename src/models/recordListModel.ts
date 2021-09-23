@@ -1,8 +1,13 @@
+import clone from "@/lib/clone";
 const localStorageKeyName = 'recordList';
 const recordListModel = {
     data: [] as RecordItem[],
-    clone(data: RecordItem[] | RecordItem) {
-        return JSON.parse(JSON.stringify(data));
+    create(record:RecordItem){
+        const deepClone: RecordItem = clone(record);
+        deepClone.createAt = new Date();
+        this.data.push(deepClone);
+        // 上面这之前出了一个bug，这样写 this.recordList.push(this.record);
+        // this.record 只是一个引用，而没有复制出一个新的，所以提交多少次都是一样的数据在localstorage里面
     },
     fetch() {
         this.data = JSON.parse(window.localStorage.getItem('localStorageKeyName') || '[]') as RecordItem[];
